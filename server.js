@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { connectToDatabase } from "./Database/mongodb.database.js";
 import arcjetMiddleware from "./middleware/arcjet.middleware.js";
+import errorMiddleware from "./middleware/error.middleware.js";
 
 const app = express();
 
@@ -23,6 +24,8 @@ app.get("/", (req, res) => {
 app.get("/health", (req, res) => {
   res.send({ status: "OK" });
 });
+
+app.use(errorMiddleware);
 
 app.listen(PORT, async () => {
   console.log("Connecting Server to Database...");
